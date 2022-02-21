@@ -16,7 +16,7 @@ connectDB();
 const app = express();
 
 //Handlebars (template engine)
-app.engine('.hbs', engine({ extname: '.hbs' }));
+app.engine('.hbs', engine({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
