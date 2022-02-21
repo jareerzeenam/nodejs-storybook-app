@@ -3,25 +3,29 @@ const dotenv = require('dotenv');
 //morgan login
 const morgan = require('morgan');
 // express handle bar template engine
-const exphbs = require('express-handlebars');
+const { engine } = require('express-handlebars');
 
 const connectDB = require('./config/db');
 
 // Load config
 dotenv.config({ path: './config/config.env' });
 
-// Connect to db
+// Connect to mongo db
 connectDB();
 
 const app = express();
 
-// Handlebars
-app.engine('.hbs', engine({ defaultLayout: 'main', extname: '.hbs' }));
+//Handlebars (template engine)
+app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
+app.set('views', './views');
 
 if (process.env.NODE_ENV == 'development') {
   app.use(morgan('dev'));
 }
+
+//! Routes
+app.use('/', require('./routes/index'));
 
 const PORT = process.env.PORT || 3000;
 
