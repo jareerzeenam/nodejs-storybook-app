@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 //morgan login
 const morgan = require('morgan');
@@ -10,6 +11,9 @@ const { engine } = require('express-handlebars');
 const passport = require('passport');
 //Express Session
 const session = require('express-session');
+
+// handle on reload redirects back to login issue by saving a session on db
+const MongoStore = require('connect-mongo');
 
 const connectDB = require('./config/db');
 
@@ -40,6 +44,9 @@ app.use(
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+    }),
   })
 );
 
