@@ -11,4 +11,8 @@ p {
 .login-container .card-container {
   padding: 20px;
 }
+
+.fa-small {
+  font-size: 16px !important;
+}
 /*# sourceMappingURL=style.css.map */
